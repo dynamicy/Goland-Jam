@@ -1,0 +1,191 @@
+basePath: /
+definitions:
+  models.Member:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server for Goland-Jam.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Goland-Jam API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: get the status of server.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Show the status of server.
+      tags:
+      - health
+  /member:
+    delete:
+      description: Delete a member by ID
+      parameters:
+      - description: Member ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Member deleted
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete a member by ID
+      tags:
+      - members
+    get:
+      description: Get a member by ID
+      parameters:
+      - description: Member ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Member'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Member Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get a member by ID
+      tags:
+      - members
+    put:
+      consumes:
+      - application/json
+      description: Update a member by ID
+      parameters:
+      - description: Member ID
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: Member
+        in: body
+        name: member
+        required: true
+        schema:
+          $ref: '#/definitions/models.Member'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Member'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Update a member by ID
+      tags:
+      - members
+  /members:
+    get:
+      description: List members with pagination
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Member'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: List members with pagination
+      tags:
+      - members
+    post:
+      consumes:
+      - application/json
+      description: Create a new member
+      parameters:
+      - description: Member
+        in: body
+        name: member
+        required: true
+        schema:
+          $ref: '#/definitions/models.Member'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Member'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Create a new member
+      tags:
+      - members
+swagger: "2.0"
